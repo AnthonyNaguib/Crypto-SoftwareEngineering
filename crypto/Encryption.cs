@@ -36,7 +36,7 @@ namespace crypto
             return index;
         }
 
-        public string EncryptSUB(int n, string input)
+        public string SUB(int n, string input, bool encryptOrDecrypt)
         {
             char[] keyUPPER = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
             char[] keyLOWER = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
@@ -55,7 +55,7 @@ namespace crypto
                     if (keyUPPER.Contains(inputArray[i])) //checking if it's upper case
                     {
                         int index = Array.IndexOf(keyUPPER, inputArray[i]);
-                        int newIndex = GiveMeNewIndex(n, index, true);
+                        int newIndex = GiveMeNewIndex(n, index, encryptOrDecrypt);
                         cipheredText[i] = keyUPPER[newIndex];
                     }
                     else
@@ -63,7 +63,7 @@ namespace crypto
                         if (keyLOWER.Contains(inputArray[i])) //checking if it's lower case
                         {
                             int index = Array.IndexOf(keyLOWER, inputArray[i]);
-                            int newIndex = GiveMeNewIndex(n, index, true);
+                            int newIndex = GiveMeNewIndex(n, index, encryptOrDecrypt);
                             cipheredText[i] = keyLOWER[newIndex];
                         }
                         else //must be punctuation or number 
@@ -75,12 +75,6 @@ namespace crypto
             }
             string cipheredString = string.Join("", cipheredText);
             return cipheredString;
-        }
-        public string DecryptSUB()
-        {
-            string please = "";
-
-            return please;
         }
     }
 }
