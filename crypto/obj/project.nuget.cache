@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+tYIvsHYUy3UVmTiBEO1Lhp2Tu6XrAp5j3JZMQV+0EshYMAYauixlBvPxGhPq+2OhZ/99zSo9nLeOfj7M85Zdw==",
+  "dgSpecHash": "hvyzOxp9z6/kS9eTfZn613BaR8io5tq8INUkC0R5QO+oVP3cRP/LSUWiTbg70+jn9AL9ppKLj9PuxlCs7jkaDA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\crypto\\crypto.csproj",
+  "projectFilePath": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\Crypto-SoftwareEngineering\\crypto\\crypto.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

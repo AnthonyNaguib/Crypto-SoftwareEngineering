@@ -25,12 +25,8 @@ namespace crypto
         bool useStringAsInput;
         string inputString;
         bool outputDebug;
-
-
         public UserCommand(string input)
         {
-           // string[] inputArray = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
             List<string> inputList = Regex.Matches(input, @"[\""].+?[\""]|[^ ]+").Cast<Match>().Select(m => m.Value).ToList();
             //Regex Matches creates a MatchCollection and so we need to cast Match. The regex itself has
             //two parts, split like a boolean. [\""].+?[\""] and [^ ]+. The first part we are looking for quotation marks using a quantifier + and a lazy ?
@@ -100,6 +96,8 @@ namespace crypto
 
                 indexer++;
             }
+            HandleInput handleInput = new HandleInput(encrypt, decrypt, useAlgorithm, algorithm, usingSUB, usingTEA, SUB, TEA, readData, readFileLocation, writeData, writeFileLocation, writeToConsoleToo, useStringAsInput, inputString, outputDebug);
+          //  handleInput.DecideAction();
         }
     }
 }

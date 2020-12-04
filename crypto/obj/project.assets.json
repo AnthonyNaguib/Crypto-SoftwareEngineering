@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\crypto\\crypto.csproj",
+      "projectUniqueName": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\Crypto-SoftwareEngineering\\crypto\\crypto.csproj",
       "projectName": "crypto",
-      "projectPath": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\crypto\\crypto.csproj",
+      "projectPath": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\Crypto-SoftwareEngineering\\crypto\\crypto.csproj",
       "packagesPath": "C:\\Users\\Anthony\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\crypto\\obj\\",
+      "outputPath": "C:\\Users\\Anthony\\Documents\\Software Engineering\\ACW2\\crypto\\Crypto-SoftwareEngineering\\crypto\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
