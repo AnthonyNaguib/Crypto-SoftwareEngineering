@@ -9,36 +9,33 @@ namespace crypto
     {
         public int GiveMeNewIndex(int n, int index, bool addOrSubtract) //if bool is true we are encrypting, if bool is false we are decrypting.
         {
-            if (addOrSubtract)
-            {
-                for(int i = 0; i < n; i++)
-                {
-                    if(index == 26)
-                    {
-                        index = 0;
-                    }
-                    else
-                    {
-                        index++;
-                    }
-                }
-            }
-            else
+            if (addOrSubtract) //encrypt
             {
                 for (int i = 0; i < n; i++)
                 {
+                    index++;
+
                     if (index == 26)
                     {
                         index = 0;
                     }
-                    else
+                }
+            }
+            else //decrypt
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    index--;
+
+                    if (index == 0)
                     {
-                        index--;
+                        index = 26;
                     }
                 }
             }
             return index;
         }
+
         public string EncryptSUB(int n, string input)
         {
             char[] keyUPPER = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -47,9 +44,9 @@ namespace crypto
 
             char[] inputArray = input.ToCharArray();
             char[] cipheredText = new char[inputArray.Length];
-            for(int i = 0; i < inputArray.Length; i++)
+            for (int i = 0; i < inputArray.Length; i++)
             {
-                if(inputArray[i] == ' ') //checking if it's a space
+                if (inputArray[i] == ' ') //checking if it's a space
                 {
                     cipheredText[i] = ' ';
                 }
@@ -63,7 +60,7 @@ namespace crypto
                     }
                     else
                     {
-                        if(keyLOWER.Contains(inputArray[i])) //checking if it's lower case
+                        if (keyLOWER.Contains(inputArray[i])) //checking if it's lower case
                         {
                             int index = Array.IndexOf(keyLOWER, inputArray[i]);
                             int newIndex = GiveMeNewIndex(n, index, true);
@@ -76,7 +73,6 @@ namespace crypto
                     }
                 }
             }
-
             string cipheredString = string.Join("", cipheredText);
             return cipheredString;
         }
