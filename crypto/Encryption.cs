@@ -100,33 +100,33 @@ namespace crypto
         }
         public string TEA(string input, string key, bool encryptORDecrypt)
         {
-            //ensure that key is 16 chars
-            if (key.Length > 16)
-            {
-                key = key.Substring(0, 16); //truncate
-            }
-            else if (key.Length < 16)
-            {
-                key = key.PadRight(16, ' '); //append
-            }
-
-            byte[] inputByte = Encoding.ASCII.GetBytes(input); //string is char[,] and each char is can be a byte, a byte is an 8-bit int
-            byte[] keyByte = Encoding.ASCII.GetBytes(key);
-
-            ulong[] inputLong = new ulong[inputByte.Length];
-            ulong[] keyLong = new ulong[keyByte.Length];
-
-            for (int i = 0; i < inputByte.Length; i += 8) //go through the array and turn the byte to a ulong
-            {
-                inputLong[i] = BitConverter.ToUInt64(inputByte, i); // Which byte position to convert
-            }
-            for (int i = 0; i < keyByte.Length; i += 8)
-            {
-                keyLong[i] = BitConverter.ToUInt64(keyByte, i);
-            }
-
             if (encryptORDecrypt)
             {
+                //ensure that key is 16 chars
+                if (key.Length > 16)
+                {
+                    key = key.Substring(0, 16); //truncate
+                }
+                else if (key.Length < 16)
+                {
+                    key = key.PadRight(16, ' '); //append
+                }
+
+                byte[] inputByte = Encoding.ASCII.GetBytes(input); //string is char[,] and each char is can be a byte, a byte is an 8-bit int
+                byte[] keyByte = Encoding.ASCII.GetBytes(key);
+
+                ulong[] inputLong = new ulong[inputByte.Length];
+                ulong[] keyLong = new ulong[keyByte.Length];
+
+                for (int i = 0; i < inputByte.Length; i += 8) //go through the array and turn the byte to a ulong
+                {
+                    inputLong[i] = BitConverter.ToUInt64(inputByte, i); // Which byte position to convert
+                }
+                for (int i = 0; i < keyByte.Length; i += 8)
+                {
+                    keyLong[i] = BitConverter.ToUInt64(keyByte, i);
+                }
+
                 #region TEAEncryptiom
                 ulong y = inputLong[0];
                 ulong z = inputLong[1];
@@ -147,6 +147,14 @@ namespace crypto
             }
             else
             {
+                string[] inputArray = input.Split();
+                ulong[] inputLong = new ulong[inputArray.Length];
+
+                for (int i = 0; i < inputArray.Length; i += 8) //go through the array and turn the byte to a ulong
+                {
+                    inputLong[i] = BitConverter.ToUInt64(inputArray, i); // Which byte position to convert
+                }
+
                 #region TEADecrypt
                 ulong n = 32;
                 ulong sum;
@@ -167,7 +175,7 @@ namespace crypto
                 #endregion
             }
 
-            string result = string.Join("", inputLong);
+            string result = String.Join("", inputLong.Where(l => l != 0));
             return result;
         }
     }

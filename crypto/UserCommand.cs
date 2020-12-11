@@ -65,39 +65,43 @@ namespace crypto
 
                     case "-s": //SUB integer
                         usingSUB = true;
-                        SUB = int.Parse(inputList[indexer+1]);
+                        SUB = int.Parse(inputList[indexer + 1]);
                         break;
 
                     case "-k": //TEA string
                         usingTEA = true;
-                        TEA = inputList[indexer++];
+                        TEA = inputList[indexer + 1];
                         break;
 
                     case "-f": //read data from file
                         readData = true;
-                        readFileLocation = inputList[indexer+1];
+                        readFileLocation = inputList[indexer + 1];
                         break;
 
                     case "-o": //output data to file
                         writeData = true;
-                        writeFileLocation = inputList[indexer+1];
+                        writeFileLocation = inputList[indexer + 1];
                         break;
 
                     case "-O": //output data to file AND console
+                        writeFileLocation = inputList[indexer + 1];
                         writeToConsoleToo = true;
                         break;
 
                     case "-i": //use string as 
                         useStringAsInput = true;
-                        inputString = inputList[indexer+1];
+                        inputString = inputList[indexer + 1];
                         Console.WriteLine(inputString);
+                        break;
+
+                    case "-b":
+                        outputDebug = true;
                         break;
                 }
 
                 indexer++;
             }
             HandleInput handleInput = new HandleInput(encrypt, decrypt, useAlgorithm, algorithm, usingSUB, usingTEA, SUB, TEA, readData, readFileLocation, writeData, writeFileLocation, writeToConsoleToo, useStringAsInput, inputString, outputDebug);
-          //  handleInput.DecideAction();
         }
     }
 }
