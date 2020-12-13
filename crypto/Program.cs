@@ -6,8 +6,8 @@ namespace crypto
     {
         static void Main(string[] args)
         {
-            string input = Console.ReadLine();
-            UserCommand userCommand = new UserCommand(input);
+            UserCommand userCommand = new UserCommand(args);
+
         }
     }
 }

@@ -24,11 +24,9 @@ namespace crypto
         string inputString { get; set; }
         bool outputDebug { get; set; }
 
-
         string input { get; set; }
         bool encryptOrDecrypt { get; set; }
         string result { get; set; }
-        Encryption encryption { get; set; }
         public HandleInput(bool _encrypt, bool _decrypt, bool _useAlgorithm, algorithms _algorithm, bool _usingSUB, bool _usingTEA, int _SUB, string _TEA, bool _readData, string _readFileLocation, bool _writeData, string _writeFileLocation, bool _writeToConsoleToo, bool _useStringAsInput, string _inputstring, bool _outputDebug)
         {
             this.encrypt = _encrypt; //
@@ -51,7 +49,7 @@ namespace crypto
             this.input = null;
             this.encryptOrDecrypt = true;
             this.result = null;
-            this.encryption = new Encryption();
+
             DecideAction();
         }
 
@@ -67,24 +65,6 @@ namespace crypto
 
             Output();
         }
-        private void ReadData()
-        {
-            if (readData) //read data from file
-            {
-                if (useStringAsInput)
-                {
-                    //asking to use file location and console input as your input string
-                }
-                else
-                {
-                    input = File.ReadAllText(readFileLocation);
-                }
-            }
-            else //read data from console
-            {
-                input = inputString;
-            }
-        }
         private void Precautions()
         {
             if (readData)
@@ -96,13 +76,41 @@ namespace crypto
                 writeFileLocation = writeFileLocation.Trim('\"');
             }
         }
+        private void ReadData()
+        {
+            if (readData) //read data from file
+            {
+                if (useStringAsInput)
+                {
+                    Console.WriteLine("Error - Cannot use file and console command input simultaneously");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    try
+                    {
+                        input = File.ReadAllText(readFileLocation);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error - " + e.Message);
+                        Environment.Exit(0);
+                    }
+                }
+            }
+            else //read data from console
+            {
+                input = inputString;
+            }
+        }
         public void EncryptOrDecrypt()
         {
             if (encrypt) //encrypt
             {
                 if (decrypt)
                 {
-                    //stating encrypt and decrypt in the same command
+                    Console.WriteLine("Error - Cannot Encrypt and Decrypt simultaneously");
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -122,32 +130,38 @@ namespace crypto
                 {
                     if (usingTEA == false)
                     {
-                        //using TEA without stating any TEA string 
+                        Console.WriteLine("Error - You are trying to use TEA without specifying a key");
+                        Environment.Exit(0);
                     }
                     else
                     {
-                        result = encryption.TEA(input, TEA, encryptOrDecrypt);
+                        TEA tea = new TEA();
+                        result = tea.algorithmTEA(input, TEA, encryptOrDecrypt);
                     }
                 }
                 else if (algorithm == algorithms.SUB) //SUB
                 {
                     if (usingSUB == false)
                     {
-                        //using SUB without stating any SUB key
+                        Console.WriteLine("Error - You are trying to use SUB without specifying the character offset");
+                        Environment.Exit(0);
                     }
                     else
                     {
-                        result = encryption.SUB(SUB, input, encryptOrDecrypt);
+                        SUB sub = new SUB();
+                        result = sub.algorithmSUB(SUB, input, encryptOrDecrypt);
                     }
                 }
                 else //MD5
                 {
-
+                    Console.WriteLine("Error - MD5 not implemented");
+                    Environment.Exit(0);
                 }
             }
             else
             {
-                //not using any algorithm 
+                Console.WriteLine("Error - You have not specified an algorithm.");
+                Environment.Exit(0);
             }
         }
         public void Output()
@@ -171,13 +185,29 @@ namespace crypto
             {
                 if (file && console)
                 {
-                    File.WriteAllText(writeFileLocation, result);
-                    Console.WriteLine();
-                    Console.WriteLine(result);
+                    try
+                    {
+                        File.WriteAllText(writeFileLocation, result);
+                        Console.WriteLine();
+                        Console.WriteLine(result);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error - " + e.Message);
+                        Environment.Exit(0);
+                    }
                 }
                 else
                 {
-                    File.WriteAllText(writeFileLocation, result);
+                    try
+                    {
+                        File.WriteAllText(writeFileLocation, result);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine("Error - " + e.Message);
+                        Environment.Exit(0);
+                    }
                 }
             }
             else

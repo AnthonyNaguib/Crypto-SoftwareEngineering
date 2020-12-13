@@ -25,14 +25,10 @@ namespace crypto
         bool useStringAsInput;
         string inputString;
         bool outputDebug;
-        public UserCommand(string input)
+        public UserCommand(string[] input)
         {
-            List<string> inputList = Regex.Matches(input, @"[\""].+?[\""]|[^ ]+").Cast<Match>().Select(m => m.Value).ToList();
-            //Regex Matches creates a MatchCollection and so we need to cast Match. The regex itself has
-            //two parts, split like a boolean. [\""].+?[\""] and [^ ]+. The first part we are looking for quotation marks using a quantifier + and a lazy ?
-            //whereas the second part is looking for all spaces.
-            //Using select with the lambda expression syntax means "goes to", seperates the argument from the body.
-            //For example we will use the word "the", m will be "{the}", m.Value will be "the".
+            List<string> inputList = input.ToList();
+
             int indexer = 0;
             foreach(string command in inputList)
             {
@@ -91,7 +87,6 @@ namespace crypto
                     case "-i": //use string as 
                         useStringAsInput = true;
                         inputString = inputList[indexer + 1];
-                        Console.WriteLine(inputString);
                         break;
 
                     case "-b":
