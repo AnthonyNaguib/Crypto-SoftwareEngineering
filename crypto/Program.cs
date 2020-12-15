@@ -6,7 +6,9 @@ namespace crypto
     {
         static void Main(string[] args)
         {
-            UserCommand userCommand = new UserCommand(args);
+            Data userData = new Data();
+            UserCommand userCommand = new UserCommand(args, userData);
+            HandleInput handleInput = new HandleInput(userData);
 
         }
     }

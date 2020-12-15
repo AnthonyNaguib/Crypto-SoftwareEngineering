@@ -7,25 +7,9 @@ using System.Text.RegularExpressions;
 namespace crypto
 {
     enum algorithms { SUB, MD5, TEA}
-    class UserCommand
+    class UserCommand:Data
     {
-        bool encrypt;
-        bool decrypt;
-        bool useAlgorithm;
-        algorithms algorithm;
-        bool usingSUB;
-        bool usingTEA;
-        int SUB;
-        string TEA;
-        bool readData;
-        string readFileLocation;
-        bool writeData;
-        string writeFileLocation;
-        bool writeToConsoleToo;
-        bool useStringAsInput;
-        string inputString;
-        bool outputDebug;
-        public UserCommand(string[] input)
+        public UserCommand(string[] input, Data data)
         {
             List<string> inputList = input.ToList();
 
@@ -35,68 +19,67 @@ namespace crypto
                 switch (command)
                 {
                     case "-e": //encrypt
-                        encrypt = true;
+                        data.encrypt = true;
                         break;
 
                     case "-d": //decrypt
-                        decrypt = true;
-                        outputDebug = true;
+                        data.decrypt = true;
+                        data.outputDebug = true;
                         break;
 
                     case "-a": //use algorithm
-                        useAlgorithm = true;
+                        data.useAlgorithm = true;
                         break;
 
                     case "SUB": //algorithm SUB
-                        algorithm = algorithms.SUB;
+                        data.algorithm = algorithms.SUB;
                         break;
 
                     case "MD5": //algorithm MD5
-                        algorithm = algorithms.MD5;
+                        data.algorithm = algorithms.MD5;
                         break;
 
                     case "TEA": //algorithm TEA
-                        algorithm = algorithms.TEA;
+                        data.algorithm = algorithms.TEA;
                         break;
 
                     case "-s": //SUB integer
-                        usingSUB = true;
-                        SUB = int.Parse(inputList[indexer + 1]);
+                        data.usingSUB = true;
+                        data.SUB = int.Parse(inputList[indexer + 1]);
                         break;
 
                     case "-k": //TEA string
-                        usingTEA = true;
-                        TEA = inputList[indexer + 1];
+                        data.usingTEA = true;
+                        data.TEA = inputList[indexer + 1];
                         break;
 
                     case "-f": //read data from file
-                        readData = true;
-                        readFileLocation = inputList[indexer + 1];
+                        data.readData = true;
+                        data.readFileLocation = inputList[indexer + 1];
                         break;
 
                     case "-o": //output data to file
-                        writeData = true;
-                        writeFileLocation = inputList[indexer + 1];
+                        data.writeData = true;
+                        data.writeFileLocation = inputList[indexer + 1];
                         break;
 
                     case "-O": //output data to file AND console
-                        writeFileLocation = inputList[indexer + 1];
-                        writeToConsoleToo = true;
+                        data.writeFileLocation = inputList[indexer + 1];
+                        data.writeToConsoleToo = true;
                         break;
 
                     case "-i": //use string as 
-                        useStringAsInput = true;
-                        inputString = inputList[indexer + 1];
+                        data.useStringAsInput = true;
+                        data.inputString = inputList[indexer + 1];
                         break;
 
                     case "-b":
-                        outputDebug = true;
+                        data.outputDebug = true;
                         break;
                 }
 
                 indexer++;
             }
-            HandleInput handleInput = new HandleInput(encrypt, decrypt, useAlgorithm, algorithm, usingSUB, usingTEA, SUB, TEA, readData, readFileLocation, writeData, writeFileLocation, writeToConsoleToo, useStringAsInput, inputString, outputDebug);
         }
     }
 }

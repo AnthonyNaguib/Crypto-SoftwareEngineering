@@ -7,52 +7,20 @@ namespace crypto
 {
     class HandleInput
     {
-        bool encrypt { get; set; }
-        bool decrypt { get; set; }
-        bool useAlgorithm { get; set; }
-        algorithms algorithm { get; set; }
-        bool usingSUB { get; set; }
-        bool usingTEA { get; set; }
-        int SUB { get; set; }
-        string TEA { get; set; }
-        bool readData { get; set; }
-        string readFileLocation { get; set; }
-        bool writeData { get; set; }
-        string writeFileLocation { get; set; }
-        bool writeToConsoleToo { get; set; }
-        bool useStringAsInput { get; set; }
-        string inputString { get; set; }
-        bool outputDebug { get; set; }
 
-        string input { get; set; }
-        bool encryptOrDecrypt { get; set; }
-        string result { get; set; }
-        public HandleInput(bool _encrypt, bool _decrypt, bool _useAlgorithm, algorithms _algorithm, bool _usingSUB, bool _usingTEA, int _SUB, string _TEA, bool _readData, string _readFileLocation, bool _writeData, string _writeFileLocation, bool _writeToConsoleToo, bool _useStringAsInput, string _inputstring, bool _outputDebug)
+        Data data;
+        string input;
+        bool encryptOrDecrypt;
+        string result;
+        public HandleInput(Data data)
         {
-            this.encrypt = _encrypt; //
-            this.decrypt = _decrypt; //
-            this.useAlgorithm = _useAlgorithm; //
-            this.algorithm = _algorithm; //
-            this.usingSUB = _usingSUB; //
-            this.usingTEA = _usingTEA;//
-            this.SUB = _SUB; //
-            this.TEA = _TEA; //
-            this.readData = _readData; // 
-            this.readFileLocation = _readFileLocation; //
-            this.writeData = _writeData;
-            this.writeFileLocation = _writeFileLocation;
-            this.writeToConsoleToo = _writeToConsoleToo;
-            this.useStringAsInput = _useStringAsInput; //
-            this.inputString = _inputstring; //
-            this.outputDebug = _outputDebug;
-
+            this.data = data;
             this.input = null;
             this.encryptOrDecrypt = true;
             this.result = null;
 
             DecideAction();
         }
-
         private void DecideAction()
         {
             Precautions();
@@ -67,20 +35,20 @@ namespace crypto
         }
         private void Precautions()
         {
-            if (readData)
+            if (data.readData)
             {
-                readFileLocation = readFileLocation.Trim('\"');
+                data.readFileLocation = data.readFileLocation.Trim('\"');
             }
-            if (writeData || writeToConsoleToo)
+            if (data.writeData || data.writeToConsoleToo)
             {
-                writeFileLocation = writeFileLocation.Trim('\"');
+                data.writeFileLocation = data.writeFileLocation.Trim('\"');
             }
         }
         private void ReadData()
         {
-            if (readData) //read data from file
+            if (data.readData) //read data from file
             {
-                if (useStringAsInput)
+                if (data.useStringAsInput)
                 {
                     Console.WriteLine("Error - Cannot use file and console command input simultaneously");
                     Environment.Exit(0);
@@ -89,7 +57,7 @@ namespace crypto
                 {
                     try
                     {
-                        input = File.ReadAllText(readFileLocation);
+                        input = File.ReadAllText(data.readFileLocation);
                     }
                     catch (Exception e)
                     {
@@ -100,14 +68,14 @@ namespace crypto
             }
             else //read data from console
             {
-                input = inputString;
+                input = data.inputString;
             }
         }
         public void EncryptOrDecrypt()
         {
-            if (encrypt) //encrypt
+            if (data.encrypt) //encrypt
             {
-                if (decrypt)
+                if (data.decrypt)
                 {
                     Console.WriteLine("Error - Cannot Encrypt and Decrypt simultaneously");
                     Environment.Exit(0);
@@ -124,11 +92,11 @@ namespace crypto
         }
         public void Algorithm()
         {
-            if (useAlgorithm)
+            if (data.useAlgorithm)
             {
-                if (algorithm == algorithms.TEA) //TEA
+                if (data.algorithm == algorithms.TEA) //TEA
                 {
-                    if (usingTEA == false)
+                    if (data.usingTEA == false)
                     {
                         Console.WriteLine("Error - You are trying to use TEA without specifying a key");
                         Environment.Exit(0);
@@ -136,12 +104,12 @@ namespace crypto
                     else
                     {
                         TEA tea = new TEA();
-                        result = tea.algorithmTEA(input, TEA, encryptOrDecrypt);
+                        result = tea.algorithmTEA(input, data.TEA, encryptOrDecrypt);
                     }
                 }
-                else if (algorithm == algorithms.SUB) //SUB
+                else if (data.algorithm == algorithms.SUB) //SUB
                 {
-                    if (usingSUB == false)
+                    if (data.usingSUB == false)
                     {
                         Console.WriteLine("Error - You are trying to use SUB without specifying the character offset");
                         Environment.Exit(0);
@@ -149,7 +117,7 @@ namespace crypto
                     else
                     {
                         SUB sub = new SUB();
-                        result = sub.algorithmSUB(SUB, input, encryptOrDecrypt);
+                        result = sub.algorithmSUB(data.SUB, input, encryptOrDecrypt);
                     }
                 }
                 else //MD5
@@ -166,11 +134,11 @@ namespace crypto
         }
         public void Output()
         {
-            if (writeData)
+            if (data.writeData)
             {
                 OutputData(true, false, result); //to file 
             }
-            else if (writeToConsoleToo)
+            else if (data.writeToConsoleToo)
             {
                 OutputData(true, true, result); //to file and console
             }
@@ -187,7 +155,7 @@ namespace crypto
                 {
                     try
                     {
-                        File.WriteAllText(writeFileLocation, result);
+                        File.WriteAllText(data.writeFileLocation, result);
                         Console.WriteLine();
                         Console.WriteLine(result);
                     }
@@ -201,7 +169,7 @@ namespace crypto
                 {
                     try
                     {
-                        File.WriteAllText(writeFileLocation, result);
+                        File.WriteAllText(data.writeFileLocation, result);
                     }
                     catch(Exception e)
                     {
