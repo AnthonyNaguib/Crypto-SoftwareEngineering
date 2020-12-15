@@ -21,6 +21,7 @@ namespace crypto
 
             DecideAction();
         }
+
         private void DecideAction()
         {
             Precautions();
@@ -66,9 +67,14 @@ namespace crypto
                     }
                 }
             }
-            else //read data from console
+            else if(data.useStringAsInput) //read data from console
             {
                 input = data.inputString;
+            }
+            else
+            {
+                Console.WriteLine("Error - No Input string");
+                Environment.Exit(0);
             }
         }
         public void EncryptOrDecrypt()
@@ -85,9 +91,14 @@ namespace crypto
                     encryptOrDecrypt = true;
                 }
             }
-            else //decrypt 
+            else if(data.decrypt) //decrypt 
             {
                 encryptOrDecrypt = false;
+            }
+            else
+            {
+                Console.WriteLine("Error - Please specify if you would like to encrypt or decrypt");
+                Environment.Exit(0);
             }
         }
         public void Algorithm()
@@ -104,7 +115,14 @@ namespace crypto
                     else
                     {
                         TEA tea = new TEA();
-                        result = tea.algorithmTEA(input, data.TEA, encryptOrDecrypt);
+                        if (data.encrypt)
+                        {
+                            result = tea.EncryptTEA(input, data.TEA);
+                        }
+                        else
+                        {
+                            result = tea.DencryptTEA(input, data.TEA);
+                        }
                     }
                 }
                 else if (data.algorithm == algorithms.SUB) //SUB
@@ -122,13 +140,19 @@ namespace crypto
                 }
                 else //MD5
                 {
+                    if(data.decrypt)
+                    {
+                        Console.WriteLine("Error - Cannot decrypt using MD5");
+                        Environment.Exit(0);
+                    }
+
                     Console.WriteLine("Error - MD5 not implemented");
                     Environment.Exit(0);
                 }
             }
             else
             {
-                Console.WriteLine("Error - You have not specified an algorithm.");
+                Console.WriteLine("Error - You have not specified an algorithm");
                 Environment.Exit(0);
             }
         }

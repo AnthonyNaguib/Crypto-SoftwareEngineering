@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace crypto
 {
-    enum algorithms { SUB, MD5, TEA}
     class UserCommand:Data
     {
         public UserCommand(string[] input, Data data)

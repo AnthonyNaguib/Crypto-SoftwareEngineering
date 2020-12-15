@@ -4,6 +4,7 @@ using System.Text;
 
 namespace crypto
 {
+    enum algorithms { SUB, MD5, TEA}
     class Data
     {
         public bool encrypt { get; set; }
