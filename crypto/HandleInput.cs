@@ -114,16 +114,24 @@ namespace crypto
                     }
                     else
                     {
-                        TEA tea = new TEA(data.TEA, input);
-                        if (data.encrypt)
+                        if (data.usingSUB == true)
                         {
-                            tea.Encrypt();
-                            result = tea.GetResult();
+                            Console.WriteLine("Error - Cannot use more than one algorithm simultaneously");
+                            Environment.Exit(0);
                         }
                         else
                         {
-                            tea.Decrypt();
-                            result = tea.GetResult();
+                            TEA tea = new TEA(data.TEA, input);
+                            if (data.encrypt)
+                            {
+                                tea.Encrypt();
+                                result = tea.GetResult();
+                            }
+                            else
+                            {
+                                tea.Decrypt();
+                                result = tea.GetResult();
+                            }
                         }
                     }
                 }
@@ -136,16 +144,24 @@ namespace crypto
                     }
                     else
                     {
-                        SUB sub = new SUB(data.SUB, input);
-                        if (data.encrypt)
+                        if (data.usingSUB == true)
                         {
-                            sub.Encrypt();
-                            result = sub.GetResult();
+                            Console.WriteLine("Error - Cannot use more than one algorithm simultaneously");
+                            Environment.Exit(0);
                         }
                         else
                         {
-                            sub.Decrypt();
-                            result = sub.GetResult();
+                            SUB sub = new SUB(data.SUB, input);
+                            if (data.encrypt)
+                            {
+                                sub.Encrypt();
+                                result = sub.GetResult();
+                            }
+                            else
+                            {
+                                sub.Decrypt();
+                                result = sub.GetResult();
+                            }
                         }
                     }
                 }
