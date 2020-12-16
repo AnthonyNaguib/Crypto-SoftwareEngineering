@@ -7,6 +7,8 @@ namespace crypto
 {
     abstract class Encryption
     {
-
+        public abstract void Encrypt();
+        public abstract void Decrypt();
+        public abstract string GetResult();
     }
 }

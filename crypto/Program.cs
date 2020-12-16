@@ -9,7 +9,6 @@ namespace crypto
             Data userData = new Data();
             UserCommand userCommand = new UserCommand(args, userData);
             HandleInput handleInput = new HandleInput(userData);
-
         }
     }
 }

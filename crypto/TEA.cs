@@ -7,10 +7,16 @@ namespace crypto
 {
     class TEA : Encryption
     {
-        public string EncryptTEA(string input, string key)
+        string key;
+        string input;
+        string result;
+        public TEA(string _key, string _input)
         {
-            string result = "";
-
+            this.key = _key;
+            this.input = _input;
+        }
+        public override void Encrypt()
+        {
             //ensure that key is 16 chars
             if (key.Length > 16)
             {
@@ -64,14 +70,9 @@ namespace crypto
             #endregion
 
             result = String.Join("", inputLong.Where(l => l != 0));
-
-
-            return result;
         }
-        public string DencryptTEA(string input, string key)
+        public override void Decrypt()
         {
-            string result = "";
-
             //ensure that key is 16 chars
             if (key.Length > 16)
             {
@@ -145,7 +146,9 @@ namespace crypto
 
             byte[] resultByte = byteList.ToArray();
             result = Convert.ToBase64String(resultByte);
-
+        }
+        public override string GetResult()
+        {
             return result;
         }
     }

@@ -114,14 +114,16 @@ namespace crypto
                     }
                     else
                     {
-                        TEA tea = new TEA();
+                        TEA tea = new TEA(data.TEA, input);
                         if (data.encrypt)
                         {
-                            result = tea.EncryptTEA(input, data.TEA);
+                            tea.Encrypt();
+                            result = tea.GetResult();
                         }
                         else
                         {
-                            result = tea.DencryptTEA(input, data.TEA);
+                            tea.Decrypt();
+                            result = tea.GetResult();
                         }
                     }
                 }
@@ -134,8 +136,17 @@ namespace crypto
                     }
                     else
                     {
-                        SUB sub = new SUB();
-                        result = sub.algorithmSUB(data.SUB, input, encryptOrDecrypt);
+                        SUB sub = new SUB(data.SUB, input);
+                        if (data.encrypt)
+                        {
+                            sub.Encrypt();
+                            result = sub.GetResult();
+                        }
+                        else
+                        {
+                            sub.Decrypt();
+                            result = sub.GetResult();
+                        }
                     }
                 }
                 else //MD5

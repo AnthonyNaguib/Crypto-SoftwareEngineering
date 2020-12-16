@@ -7,20 +7,6 @@
       <FileName>UserCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="crypto.TEA">
-    <Position X="8" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAABAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>TEA.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="crypto.SUB">
-    <Position X="5.5" Y="2.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SUB.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="crypto.HandleInput">
     <Position X="2.5" Y="3.25" Width="2.25" />
     <TypeIdentifier>
@@ -42,10 +28,24 @@
       <FileName>Data.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="crypto.Encryption" Collapsed="true">
-    <Position X="6.75" Y="0.75" Width="1.5" />
+  <Class Name="crypto.TEA">
+    <Position X="7.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAQBAAEAAAAAAAAABAAAEAAAAAAAAA=</HashCode>
+      <FileName>TEA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="crypto.SUB">
+    <Position X="5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAEABEAAAAAAAAQBAAAAAAAAAAAABAAAEAAAAAAAAA=</HashCode>
+      <FileName>SUB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="crypto.Encryption">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>Encryption.cs</FileName>
     </TypeIdentifier>
   </Class>
